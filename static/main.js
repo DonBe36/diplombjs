@@ -57,3 +57,68 @@ function getStocks(callback) {
         callback(err, data[data.lenght - 1]);	
     });	
 };	
+
+function main() {
+    const Andrey = new Profile({
+        username: 'andrey',
+        name: { firstName: 'andrey', lastName: 'shalimov' },
+        password: '4kmcx',
+    });
+
+    Andrey.create((err, data) => {
+        if (err) {
+            console.error('Error during creating user Andrey')
+        } else {
+            console.log(`Andrey is created!`);
+        };
+    });
+
+    Andrey.authorize((err, data) => {
+        if (err) {
+            console.error('Error during authorizing user Andrey')
+        } else {
+            console.log(`Andrey is authorized!`)
+        };
+    });
+                   
+    Andrey.addMoney({ currency: 'EUR', amount: 500000 }, (err, data) => {
+        if (err) {
+            console.error('Error during adding money to Andrey');
+        } else {
+            console.log(`Added 500000 euros to Andrey`);
+        };
+    });
+
+    Andrey.convertMoney({ fromCurrency: 'EUR', targetCurrency: 'NETCOIN', targetAmount: 36000 }, (err, data) => {
+        if (err) {
+            console.error('Error during converting money for Andrey');
+        } else {
+            console.log(`Converted money`);
+        };
+    });
+
+    const Dima =  new Profile({
+        username: 'dima',
+        name: { firstName: 'dima', lastName: 'usov' },
+        password: '12356',
+    });
+
+    Dima.create((err, data) => {
+        if (err) {
+            console.error('Error during creating user Dima')
+        } else {
+            console.log(`Dima is created!`);             
+        };
+    });
+
+    Andrey.transferMoney({ to: 'dima', amount: 36000 }, (err, data) => {
+        if (err) {
+            console.error('Error during transfering netcoins to Dima');
+        } else {
+            console.log(`Transfered 36000 netkoins to Dima`);
+        };
+    });
+};                                  
+
+main();  
+                    
