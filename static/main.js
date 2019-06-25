@@ -65,6 +65,12 @@ function main() {
         password: '4kmcx',
     });
 
+    const Dima =  new Profile({
+        username: 'dima',
+        name: { firstName: 'dima', lastName: 'usov' },
+        password: '12356',
+    });
+
     Andrey.create((err, data) => {
         if (err) {
             console.error('Error during creating user Andrey')
@@ -89,18 +95,14 @@ function main() {
         };
     });
 
-    Andrey.convertMoney({ fromCurrency: 'EUR', targetCurrency: 'NETCOIN', targetAmount: 36000 }, (err, data) => {
+    let targetAmount = Andrey['EUR_NETCOIN'] * 500000;
+
+    Andrey.convertMoney({ fromCurrency: 'EUR', targetCurrency: 'NETCOIN', targetAmount: targetAmount }, (err, data) => {
         if (err) {
             console.error('Error during converting money for Andrey');
         } else {
             console.log(`Converted money`);
         };
-    });
-
-    const Dima =  new Profile({
-        username: 'dima',
-        name: { firstName: 'dima', lastName: 'usov' },
-        password: '12356',
     });
 
     Dima.create((err, data) => {
