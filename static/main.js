@@ -71,43 +71,53 @@ function main() {
         password: '12356',
     });
 
-    Andrey.create((err, data) => {
+    getStocks((err, data) => {
         if (err) {
-            console.error('Error during creating user Andrey')
-        } else {
-            console.log(`Andrey is created!`);
-            
-            Andrey.authorize((err, data) => {
+            console.error('Error to get stocks info');
+        }else{
+            let stocks = data[data.length - 1];
+            console.log(stocks);
+
+            Andrey.create((err, data) => {
                 if (err) {
-                    console.error('Error during authorizing user Andrey')
+                    console.error('Error during creating user Andrey')
                 } else {
-                    console.log(`Andrey is authorized!`)
-                       
-                    Andrey.addMoney({ currency: 'EUR', amount: 500000 }, (err, data) => {
+                    console.log(`Andrey is created!`);
+            
+                    Andrey.authorize((err, data) => {
                         if (err) {
-                            console.error('Error during adding money to Andrey');
+                            console.error('Error during authorizing user Andrey')
                         } else {
-                            console.log(`Added 500000 euros to Andrey`);
-
-                    let targetAmount = Andrey['EUR_NETCOIN'] * 500000;
-
-                            Andrey.convertMoney({ fromCurrency: 'EUR', targetCurrency: 'NETCOIN', targetAmount: targetAmount }, (err, data) => {
+                            console.log(`Andrey is authorized!`)
+                       
+                            Andrey.addMoney({ currency: 'EUR', amount: 500000 }, (err, data) => {
                                 if (err) {
-                                    console.error('Error during converting money for Andrey');
+                                    console.error('Error during adding money to Andrey');
                                 } else {
-                                    console.log(`Converted money`);
-     
-                                    Dima.create((err, data) => {
+                                    console.log(`Added 500000 euros to Andrey`);
+
+                            let targetAmount = stocks['EUR_NETCOIN'] * 500000;
+
+                                    Andrey.convertMoney({ fromCurrency: 'EUR', targetCurrency: 'NETCOIN', targetAmount: targetAmount }, (err, data) => {
                                         if (err) {
-                                            console.error('Error during creating user Dima')
+                                            console.error('Error during converting money for Andrey');
                                         } else {
-                                            console.log(`Dima is created!`);             
-       
-                                            Andrey.transferMoney({ to: 'dima', amount: 36000 }, (err, data) => {
+                                            console.log(`Converted money`);
+     
+                                            Dima.create((err, data) => {
                                                 if (err) {
-                                                    console.error('Error during transfering netcoins to Dima');
+                                                    console.error('Error during creating user Dima')
                                                 } else {
-                                                    console.log(`Transfered 36000 netkoins to Dima`);
+                                                    console.log(`Dima is created!`);             
+       
+                                                    Andrey.transferMoney({ to: 'dima', amount: 36000 }, (err, data) => {
+                                                        if (err) {
+                                                            console.error('Error during transfering netcoins to Dima');
+                                                        } else {    
+                                                            console.log(`Transfered 36000 netkoins to Dima`);
+                                                      
+                                                        };
+                                                    });
                                                 };
                                             });
                                         };
@@ -120,7 +130,6 @@ function main() {
             });
         };
     });
-                      
 };  
 
 main();  
