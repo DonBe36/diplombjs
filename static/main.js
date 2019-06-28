@@ -54,7 +54,7 @@ class Profile {
 function getStocks(callback) {	
     return ApiConnector.getStocks((err, data) => {	
         console.log(`Getting stocks info`);	
-        callback(err, data[data.lenght - 1]);	
+        callback(err, data[data.length - 1]);	
     });	
 };	
 
@@ -75,8 +75,7 @@ function main() {
         if (err) {
             console.error('Error to get stocks info');
         }else{
-            let stocks = data[data.length - 1];
-            console.log(stocks);
+            let stocks = data;
 
             Andrey.create((err, data) => {
                 if (err) {
